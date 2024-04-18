@@ -6,16 +6,19 @@ use zero2prod::startup::run;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
-    println!("Reading configuration...");
+    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("info")).init();
+    log::info!("Starting zero2prod application...");
+
+    log::info!("Reading configuration...");
     let configuration = get_configuration().expect("Failed to read configuration.");
 
-    println!("Connecting to Postgres...");
+    log::info!("Connecting to Postgres...");
     let connection_pool = PgPool::connect(&configuration.database.connection_string())
         .await
         .expect("Failed to connect to Postgres.");
 
     let address = format!("127.0.0.1:{}", configuration.application_port);
-    println!("Starting application at: {}", address);
+    log::info!("Starting application at: {}", address);
     let listener = TcpListener::bind(address)?;
     run(listener, connection_pool)?.await
 }

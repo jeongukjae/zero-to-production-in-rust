@@ -1,7 +1,10 @@
-use sqlx::{Connection, PgConnection, PgPool};
 use sqlx::Executor;
+use sqlx::{Connection, PgConnection, PgPool};
 use uuid::Uuid;
-use zero2prod::{configuration::{get_configuration, DatabaseSettings}, startup::run};
+use zero2prod::{
+    configuration::{get_configuration, DatabaseSettings},
+    startup::run,
+};
 
 pub struct TestApp {
     pub address: String,

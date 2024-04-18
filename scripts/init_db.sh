@@ -21,3 +21,6 @@ sleep 5
 DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@localhost:${DB_PORT}/${DB_NAME}
 export DATABASE_URL
 sqlx database create
+sqlx migrate run
+
+echo "Postgres has been migrated, ready to go!"
